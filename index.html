@@ -60,17 +60,18 @@ nav {
 .hero::before {
   content: ''; position: absolute; inset: 0;
   background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
 }
-.hero-badge { display: inline-block; background: var(--saffron); color: #fff; font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 20px; margin-bottom: 1.25rem; }
-.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 4vw, 2.75rem); color: #fff; line-height: 1.2; margin-bottom: 0.5rem; }
+.hero-badge { display: inline-block; background: var(--saffron); color: #fff; font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 20px; margin-bottom: 1.25rem; position: relative; z-index: 2; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 4vw, 2.75rem); color: #fff; line-height: 1.2; margin-bottom: 0.5rem; position: relative; z-index: 2; }
 .hero h1 em { color: var(--gold); font-style: normal; }
-.hero-sub { color: rgba(255,255,255,0.65); font-size: 0.92rem; margin-bottom: 0.4rem; }
-.hero-affil { color: rgba(255,255,255,0.45); font-size: 0.8rem; margin-bottom: 2rem; }
-.hero-cards { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 2rem; }
+.hero-sub { color: rgba(255,255,255,0.65); font-size: 0.92rem; margin-bottom: 0.4rem; position: relative; z-index: 2; }
+.hero-affil { color: rgba(255,255,255,0.45); font-size: 0.8rem; margin-bottom: 2rem; position: relative; z-index: 2; }
+.hero-cards { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 2rem; position: relative; z-index: 2; }
 .hero-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 1.25rem 1.5rem; color: #fff; min-width: 140px; backdrop-filter: blur(8px); }
 .hero-card .hc-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); }
 .hero-card .hc-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 2px; }
-.hero-link { display: inline-block; background: var(--gold); color: var(--deep); font-weight: 700; font-size: 0.9rem; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; transition: all 0.2s; }
+.hero-link { display: inline-block; background: var(--gold); color: var(--deep); font-weight: 700; font-size: 0.9rem; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; transition: all 0.2s; position: relative; z-index: 10; cursor: pointer; }
 .hero-link:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
 
 /* SECTION */
