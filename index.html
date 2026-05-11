@@ -490,7 +490,6 @@ body.intro-active footer {
   <div class="nav-links">
     <button class="active" onclick="showPage('home')">🏠 Home</button>
     <button onclick="showPage('streams')">📚 Courses</button>
-    <button onclick="showPage('admission')">🧭 प्रवेश प्रक्रिया</button>
     <button onclick="showPage('documents')">📄 Documents</button>
     <button onclick="showPage('contacts')">📞 Contacts</button>
   </div>
@@ -509,7 +508,7 @@ body.intro-active footer {
       <div class="hero-card"><div class="hc-num">2026</div><div class="hc-label">Academic Year</div></div>
       <div class="hero-card"><div class="hc-num">Online</div><div class="hc-label">Application</div></div>
     </div>
-    <a class="hero-link" href="https://sangamnercollege.vriddhionline.com" target="_blank" rel="noopener noreferrer">Apply Online at vriddhionline.com →</a>
+    <a class="hero-link" href="#admission" onclick="event.preventDefault(); showPage('admission');">🧭 प्रवेश प्रक्रिया पाहा →</a>
   </div>
 
   <div class="section">
@@ -914,7 +913,7 @@ body.intro-active footer {
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const pages = ['home','streams','admission','documents','contacts'];
+  const pages = ['home','streams','documents','contacts'];
   document.querySelectorAll('.nav-links button').forEach((b,i) => b.classList.toggle('active', pages[i] === id));
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
