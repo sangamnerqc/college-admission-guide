@@ -214,9 +214,9 @@ footer a { color: var(--gold); text-decoration: none; }
 <body>
 
 <!-- WELCOME VOICE: keep welcome.mp4 in the same folder as index.html -->
-<!-- This attempts audible autoplay immediately on every page load/refresh. -->
-<video id="welcomeVoice" autoplay preload="auto" playsinline style="position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;left:-9999px;top:-9999px;">
-  <source src="welcome.mp4" type="video/mp4">
+<!-- No visible button. It tries autoplay on load, and if blocked, plays on the first click/tap anywhere. -->
+<video id="welcomeVoice" preload="auto" playsinline webkit-playsinline style="position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;left:-9999px;top:-9999px;">
+  <source src="./welcome.mp4" type="video/mp4">
 </video>
 
 
@@ -626,29 +626,45 @@ footer a { color: var(--gold); text-decoration: none; }
 
 <script>
 
-function autoplayWelcomeVoice() {
+(function welcomeVoiceSetup() {
   const voice = document.getElementById('welcomeVoice');
   if (!voice) return;
 
-  voice.muted = false;
-  voice.defaultMuted = false;
-  voice.volume = 1;
+  function resetVoice() {
+    voice.muted = false;
+    voice.defaultMuted = false;
+    voice.volume = 1;
+    try { voice.currentTime = 0; } catch (e) {}
+  }
 
-  try {
-    voice.currentTime = 0; // plays again after every refresh/page load
-  } catch (e) {}
+  async function playWelcomeVoice() {
+    resetVoice();
+    try {
+      await voice.play();
+      removeGestureListeners();
+    } catch (error) {
+      /* No button is shown. If autoplay is blocked, the first click/tap anywhere on the page will play it. */
+      console.warn('Welcome voice could not autoplay. It will play after the first user click/tap.', error);
+    }
+  }
 
-  const playPromise = voice.play();
-  if (playPromise !== undefined) {
-    playPromise.catch(() => {
-      // No button is shown. If a browser blocks audible autoplay, it is due to browser policy.
-      console.warn('Audible autoplay was blocked by the browser.');
+  function playOnFirstGesture() {
+    playWelcomeVoice();
+  }
+
+  function removeGestureListeners() {
+    ['pointerdown', 'click', 'touchstart', 'keydown'].forEach(eventName => {
+      document.removeEventListener(eventName, playOnFirstGesture, true);
     });
   }
-}
 
-window.addEventListener('DOMContentLoaded', autoplayWelcomeVoice);
-window.addEventListener('pageshow', autoplayWelcomeVoice);
+  ['pointerdown', 'click', 'touchstart', 'keydown'].forEach(eventName => {
+    document.addEventListener(eventName, playOnFirstGesture, { once: true, capture: true });
+  });
+
+  window.addEventListener('DOMContentLoaded', playWelcomeVoice);
+  window.addEventListener('pageshow', playWelcomeVoice);
+})();
 
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
