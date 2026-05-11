@@ -382,6 +382,34 @@ footer a { color: var(--gold); text-decoration: none; }
 }
 .step-info-card a:hover { text-decoration: underline; }
 
+.process-panel {
+  display: none;
+}
+.process-panel.show {
+  display: block;
+  animation: fadeUp 0.35s ease;
+}
+.admission-required-note {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  color: #1D4ED8;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.selected-branch-strip {
+  background: #FFF8F0;
+  border: 1px solid #FED7AA;
+  color: #92400E;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
 @media (max-width: 850px) {
   .admission-wrap { grid-template-columns: 1fr; }
   .process-tree { grid-template-columns: 1fr; }
@@ -718,87 +746,94 @@ body.intro-active footer {
 <div id="admission" class="page">
   <div class="section">
     <div class="section-title">प्रवेश <span>प्रक्रिया</span></div>
-    <p class="section-sub">विद्यार्थ्याची प्राथमिक माहिती भरा आणि प्रवेशाची संपूर्ण पायरी-पायरीने माहिती पाहा.</p>
+    <p class="section-sub">प्रथम विद्यार्थ्याची संपूर्ण माहिती English मध्ये भरा. त्यानंतरच प्रवेश प्रक्रियेचा वृक्ष-आरेख दिसेल.</p>
     <div class="divider"></div>
 
     <div class="admission-wrap">
       <div class="admission-form-card">
         <div class="admission-form-head">
-          <h2>🎓 विद्यार्थी माहिती</h2>
-          <p>ही माहिती फक्त विद्यार्थ्याला प्रवेश प्रक्रियेचा योग्य मार्ग समजण्यासाठी वापरली जाईल.</p>
+          <h2>🎓 Student Information</h2>
+          <p>All information must be filled in English. कृपया विद्यार्थी नाव, संपर्क क्रमांक आणि शाखा अचूक भरा.</p>
         </div>
         <div class="admission-form-body">
-          <div class="form-group">
-            <label class="marathi-label" for="studentName">विद्यार्थ्याचे पूर्ण नाव <span>*</span></label>
-            <input type="text" class="form-control" id="studentName" placeholder="उदा. अमोल संजय शिंदे" oninput="updateAdmissionSummary()"/>
+          <div class="admission-required-note">
+            <strong>Important:</strong> Fill Student Name and Contact Number in English only. After clicking <strong>माझी प्रवेश प्रक्रिया दाखवा →</strong>, the admission process tree will open.
           </div>
           <div class="form-group">
-            <label class="marathi-label" for="studentContact">संपर्क क्रमांक / ई-मेल <span>*</span></label>
-            <input type="text" class="form-control" id="studentContact" placeholder="मोबाईल क्रमांक किंवा ई-मेल" oninput="updateAdmissionSummary()"/>
+            <label class="marathi-label" for="studentName">Student Full Name <span>*</span></label>
+            <input type="text" class="form-control" id="studentName" placeholder="Example: Amit Sanjay Shinde" autocomplete="name" oninput="updateAdmissionSummary()"/>
           </div>
           <div class="form-group">
-            <label class="marathi-label" for="studentBranch">प्रवेश हवा असलेली शाखा <span>*</span></label>
+            <label class="marathi-label" for="studentContact">Contact Number <span>*</span></label>
+            <input type="tel" class="form-control" id="studentContact" placeholder="Example: 9876543210" inputmode="tel" autocomplete="tel" oninput="updateAdmissionSummary()"/>
+          </div>
+          <div class="form-group">
+            <label class="marathi-label" for="studentBranch">Branch Seeking Admission <span>*</span></label>
             <select class="form-control" id="studentBranch" onchange="updateAdmissionSummary()">
-              <option value="">-- शाखा निवडा --</option>
-              <option value="कला शाखा">कला शाखा</option>
-              <option value="वाणिज्य शाखा">वाणिज्य शाखा</option>
-              <option value="विज्ञान शाखा">विज्ञान शाखा</option>
-              <option value="बी.व्होक. / कौशल्याधारित अभ्यासक्रम">बी.व्होक. / कौशल्याधारित अभ्यासक्रम</option>
-              <option value="B.B.A. / B.B.A. (C.A.) / B.C.A. CET अभ्यासक्रम">B.B.A. / B.B.A. (C.A.) / B.C.A. CET अभ्यासक्रम</option>
+              <option value="">-- Select Branch --</option>
+              <option value="arts">Arts</option>
+              <option value="commerce">Commerce</option>
+              <option value="science">Science</option>
+              <option value="bvoc">B.Voc.</option>
+              <option value="bba">BBA</option>
+              <option value="bcs">BCS / Computer Science</option>
             </select>
           </div>
           <button class="btn-check" onclick="updateAdmissionSummary(true)">माझी प्रवेश प्रक्रिया दाखवा →</button>
           <div class="admission-summary" id="admissionSummary">
-            <strong>सूचना:</strong> वर विद्यार्थी माहिती भरल्यानंतर खालील प्रवेश प्रक्रिया विद्यार्थ्याच्या शाखेनुसार समजून घ्या.
+            <strong>सूचना:</strong> वरील माहिती English मध्ये भरल्यानंतर बटणावर क्लिक करा. त्यानंतरच प्रवेश प्रक्रियेचा वृक्ष-आरेख दिसेल.
           </div>
         </div>
       </div>
 
-      <div>
+      <div id="processPanel" class="process-panel" aria-hidden="true">
         <div class="process-card">
           <div class="process-title-row">
             <h3>🌳 प्रवेश प्रक्रियेचा वृक्ष-आरेख</h3>
             <span class="process-badge">४ मुख्य टप्पे</span>
+          </div>
+          <div class="selected-branch-strip" id="selectedBranchStrip">
+            शाखा निवडल्यानंतर समुपदेशनाचे योग्य स्थान येथे दिसेल.
           </div>
 
           <div class="process-tree" aria-label="प्रवेश प्रक्रियेचा वृक्ष-आरेख">
             <div class="process-step active" onclick="showProcessStep(1)">
               <div class="step-circle">१</div>
               <div class="step-title">समुपदेशन</div>
-              <div class="step-desc">कोर्स, विषय, पात्रता व कागदपत्रे यांची माहिती घ्या.</div>
-              <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Sangamner+College+Admission+Counselling" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
+              <div class="step-desc" id="step1Desc">शाखेनुसार समुपदेशन स्थान पाहा.</div>
+              <a class="location-link" id="step1LocationLink" href="#" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
             </div>
 
             <div class="process-step" onclick="showProcessStep(2)">
               <div class="step-circle">२</div>
               <div class="step-title">अर्ज भरणे</div>
-              <div class="step-desc">ऑनलाईन/ऑफलाईन प्रवेश अर्ज काळजीपूर्वक भरा.</div>
-              <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Sangamner+College+Form+Filling+Counter" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
+              <div class="step-desc">सर्व शाखांसाठी अर्ज भरण्याचे स्थान: Student Facility Center / Setu Suvidha Kendra.</div>
+              <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Student+Facility+Center+Setu+Suvidha+Kendra+Sangamner+College" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
             </div>
 
             <div class="process-step" onclick="showProcessStep(3)">
               <div class="step-circle">३</div>
               <div class="step-title">अर्ज तपासणी</div>
-              <div class="step-desc">भरलेला अर्ज व सर्व कागदपत्रांची पडताळणी करून घ्या.</div>
-              <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Sangamner+College+Form+Checking+Counter" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
+              <div class="step-desc">सर्व शाखांसाठी अर्ज तपासणी स्थान: Saibaba Sabhagruh.</div>
+              <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Saibaba+Sabhagruh+Sangamner+College" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
             </div>
 
             <div class="process-step" onclick="showProcessStep(4)">
               <div class="step-circle">४</div>
               <div class="step-title">फी भरणे व पावती घेणे</div>
-              <div class="step-desc">फी जमा करून प्रवेशाची अधिकृत पावती घ्या.</div>
-              <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Sangamner+College+Fees+Counter" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
+              <div class="step-desc">सर्व शाखांसाठी फी भरण्याचे स्थान: Account Section.</div>
+              <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Account+Section+Sangamner+College" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
             </div>
           </div>
 
           <div class="process-note">
-            <strong>महत्त्वाचे:</strong> प्रत्येक टप्प्यावर मूळ कागदपत्रे व त्यांच्या छायांकित प्रती जवळ ठेवा. CET आधारित अभ्यासक्रमांसाठी CET स्कोअरकार्ड / अलॉटमेंट लेटर आवश्यक असू शकते.
+            <strong>महत्त्वाचे:</strong> Arts, Commerce आणि Science शाखांसाठी समुपदेशन स्थान <strong>Saibaba Sabhagruh</strong> आहे. B.Voc., BBA आणि BCS साठी समुपदेशन संबंधित विभागात होईल. अर्ज भरणे, अर्ज तपासणी आणि फी भरणे यांची ठिकाणे सर्वांसाठी समान आहेत.
           </div>
         </div>
 
         <div class="step-info-card" id="stepInfo">
           <h4>१. समुपदेशन</h4>
-          <p>प्रथम समुपदेशन कक्षात जाऊन विद्यार्थ्याने कोणत्या शाखेत प्रवेश घ्यायचा आहे, कोणते विषय उपलब्ध आहेत, पात्रता काय आहे आणि कोणती कागदपत्रे आवश्यक आहेत याची माहिती घ्यावी. <a href="https://www.google.com/maps/search/?api=1&query=Sangamner+College+Admission+Counselling" target="_blank" rel="noopener noreferrer">समुपदेशन स्थान पाहा</a>.</p>
+          <p>निवडलेल्या शाखेनुसार योग्य समुपदेशन स्थान येथे दिसेल.</p>
         </div>
       </div>
     </div>
@@ -974,56 +1009,182 @@ function toggleDoc(el, type, total) {
   document.getElementById(`${type}-label`).textContent = `${count} of ${total} ready`;
 }
 
-const processSteps = {
-  1: {
-    title: '१. समुपदेशन',
-    text: 'समुपदेशन कक्षात विद्यार्थ्याला शाखा, विषय, पात्रता, फी, आवश्यक कागदपत्रे आणि पुढील टप्पे यांची माहिती दिली जाते.',
-    link: 'https://www.google.com/maps/search/?api=1&query=Sangamner+College+Admission+Counselling',
-    label: 'समुपदेशन स्थान पाहा'
+const branchCounsellingLocations = {
+  arts: {
+    display: 'Arts',
+    counselling: 'Saibaba Sabhagruh',
+    query: 'Saibaba Sabhagruh Sangamner College'
   },
-  2: {
-    title: '२. अर्ज भरणे',
-    text: 'विद्यार्थ्याने नाव, संपर्क माहिती, शाखा, विषय आणि आवश्यक तपशील अचूक भरावेत. ऑनलाईन अर्जाचा प्रिंटआउट जतन करून ठेवावा.',
-    link: 'https://www.google.com/maps/search/?api=1&query=Sangamner+College+Form+Filling+Counter',
-    label: 'अर्ज भरण्याचे स्थान पाहा'
+  commerce: {
+    display: 'Commerce',
+    counselling: 'Saibaba Sabhagruh',
+    query: 'Saibaba Sabhagruh Sangamner College'
   },
-  3: {
-    title: '३. अर्ज तपासणी',
-    text: 'भरलेला अर्ज, मार्कशीट, LC/TC, आधार कार्ड, फोटो आणि लागू असल्यास जात/नॉन-क्रीमी लेयर/इतर प्रमाणपत्रे तपासणीसाठी सादर करावीत.',
-    link: 'https://www.google.com/maps/search/?api=1&query=Sangamner+College+Form+Checking+Counter',
-    label: 'अर्ज तपासणी स्थान पाहा'
+  science: {
+    display: 'Science',
+    counselling: 'Saibaba Sabhagruh',
+    query: 'Saibaba Sabhagruh Sangamner College'
   },
-  4: {
-    title: '४. फी भरणे व पावती घेणे',
-    text: 'अर्ज तपासणी पूर्ण झाल्यावर फी जमा करावी आणि प्रवेश निश्चितीची अधिकृत पावती घ्यावी. पावती सुरक्षित ठेवणे आवश्यक आहे.',
-    link: 'https://www.google.com/maps/search/?api=1&query=Sangamner+College+Fees+Counter',
-    label: 'फी काउंटर स्थान पाहा'
+  bvoc: {
+    display: 'B.Voc.',
+    counselling: 'B.Voc. Department, Sangamner College',
+    query: 'B Voc Department Sangamner College'
+  },
+  bba: {
+    display: 'BBA',
+    counselling: 'BBA Department, Sangamner College',
+    query: 'BBA Department Sangamner College'
+  },
+  bcs: {
+    display: 'BCS / Computer Science',
+    counselling: 'Computer Science Department, Sangamner College',
+    query: 'Computer Science Department Sangamner College'
   }
 };
+
+const commonAdmissionLocations = {
+  formFilling: {
+    title: '२. अर्ज भरणे',
+    name: 'Student Facility Center, Setu Suvidha Kendra, Sangamner College',
+    query: 'Student Facility Center Setu Suvidha Kendra Sangamner College',
+    label: 'अर्ज भरण्याचे स्थान पाहा'
+  },
+  formChecking: {
+    title: '३. अर्ज तपासणी',
+    name: 'Saibaba Sabhagruh, Sangamner College',
+    query: 'Saibaba Sabhagruh Sangamner College',
+    label: 'अर्ज तपासणी स्थान पाहा'
+  },
+  account: {
+    title: '४. फी भरणे व पावती घेणे',
+    name: 'Account Section, Sangamner College',
+    query: 'Account Section Sangamner College',
+    label: 'Account Section स्थान पाहा'
+  }
+};
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function mapLink(query) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+function getBranchData() {
+  const branchValue = document.getElementById('studentBranch')?.value || '';
+  return branchCounsellingLocations[branchValue] || null;
+}
+
+function buildProcessSteps() {
+  const branchData = getBranchData() || {
+    display: 'Selected Branch',
+    counselling: 'Saibaba Sabhagruh / संबंधित विभाग',
+    query: 'Sangamner College Admission Counselling'
+  };
+  return {
+    1: {
+      title: '१. समुपदेशन',
+      text: `${branchData.display} शाखेसाठी समुपदेशन स्थान: ${branchData.counselling}. येथे विद्यार्थ्याला विषय, पात्रता, कागदपत्रे आणि पुढील प्रक्रिया समजावून सांगितली जाईल.`,
+      link: mapLink(branchData.query),
+      label: 'समुपदेशन स्थान पाहा'
+    },
+    2: {
+      title: commonAdmissionLocations.formFilling.title,
+      text: `अर्ज भरण्याचे स्थान सर्व विद्यार्थ्यांसाठी समान आहे: ${commonAdmissionLocations.formFilling.name}. येथे विद्यार्थी आपला प्रवेश अर्ज भरतील / ऑनलाइन अर्जासंबंधी मदत घेतील.`,
+      link: mapLink(commonAdmissionLocations.formFilling.query),
+      label: commonAdmissionLocations.formFilling.label
+    },
+    3: {
+      title: commonAdmissionLocations.formChecking.title,
+      text: `अर्ज तपासणी स्थान सर्व शाखांसाठी समान आहे: ${commonAdmissionLocations.formChecking.name}. येथे भरलेला अर्ज आणि आवश्यक कागदपत्रांची पडताळणी होईल.`,
+      link: mapLink(commonAdmissionLocations.formChecking.query),
+      label: commonAdmissionLocations.formChecking.label
+    },
+    4: {
+      title: commonAdmissionLocations.account.title,
+      text: `फी भरणे आणि पावती घेणे सर्व विद्यार्थ्यांसाठी ${commonAdmissionLocations.account.name} येथे होईल. फी भरल्यानंतर अधिकृत पावती घेणे आवश्यक आहे.`,
+      link: mapLink(commonAdmissionLocations.account.query),
+      label: commonAdmissionLocations.account.label
+    }
+  };
+}
 
 function updateAdmissionSummary(forceShow = false) {
   const name = document.getElementById('studentName')?.value.trim() || '';
   const contact = document.getElementById('studentContact')?.value.trim() || '';
-  const branch = document.getElementById('studentBranch')?.value || '';
+  const branchData = getBranchData();
   const box = document.getElementById('admissionSummary');
+  const processPanel = document.getElementById('processPanel');
   if (!box) return;
 
-  if (!name && !contact && !branch && !forceShow) {
-    box.innerHTML = '<strong>सूचना:</strong> वर विद्यार्थी माहिती भरल्यानंतर खालील प्रवेश प्रक्रिया विद्यार्थ्याच्या शाखेनुसार समजून घ्या.';
+  if (!name && !contact && !branchData && !forceShow) {
+    box.innerHTML = '<strong>सूचना:</strong> वरील माहिती English मध्ये भरल्यानंतर बटणावर क्लिक करा. त्यानंतरच प्रवेश प्रक्रियेचा वृक्ष-आरेख दिसेल.';
     return;
   }
 
-  const displayName = name || 'विद्यार्थी';
-  const displayContact = contact || 'संपर्क माहिती भरलेली नाही';
-  const displayBranch = branch || 'शाखा निवडलेली नाही';
-  box.innerHTML = `<strong>${displayName}</strong> यांना <strong>${displayBranch}</strong> मध्ये प्रवेशासाठी मार्गदर्शन हवे आहे.<br/>संपर्क: ${displayContact}<br/><strong>पुढील क्रम:</strong> समुपदेशन → अर्ज भरणे → अर्ज तपासणी → फी भरणे व पावती घेणे.`;
+  if (forceShow) {
+    const contactDigits = contact.replace(/\D/g, '');
+    if (!name || !contact || !branchData) {
+      alert('Please fill Student Name, Contact Number and Branch in English.');
+      return;
+    }
+    if (contactDigits.length < 10) {
+      alert('Please enter a valid contact number.');
+      return;
+    }
+  }
+
+  const displayName = escapeHtml(name || 'Student');
+  const displayContact = escapeHtml(contact || 'Contact number not filled');
+  const displayBranch = escapeHtml(branchData?.display || 'Branch not selected');
+  const counselling = escapeHtml(branchData?.counselling || 'Location will be shown after branch selection');
+
+  box.innerHTML = `<strong>${displayName}</strong> wants admission in <strong>${displayBranch}</strong> branch.<br/>Contact Number: ${displayContact}<br/>Counselling Location: <strong>${counselling}</strong><br/><strong>पुढील क्रम:</strong> समुपदेशन → अर्ज भरणे → अर्ज तपासणी → फी भरणे व पावती घेणे.`;
+
+  if (processPanel?.classList.contains('show') || forceShow) {
+    renderProcessForBranch();
+  }
+
+  if (forceShow && processPanel) {
+    processPanel.classList.add('show');
+    processPanel.setAttribute('aria-hidden', 'false');
+    setTimeout(() => {
+      processPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 120);
+  }
+}
+
+function renderProcessForBranch() {
+  const branchData = getBranchData();
+  const steps = buildProcessSteps();
+  const strip = document.getElementById('selectedBranchStrip');
+  const step1Desc = document.getElementById('step1Desc');
+  const step1Link = document.getElementById('step1LocationLink');
+
+  if (strip && branchData) {
+    strip.innerHTML = `<strong>${escapeHtml(branchData.display)}</strong> branch selected. समुपदेशन स्थान: <strong>${escapeHtml(branchData.counselling)}</strong>.`;
+  }
+  if (step1Desc && branchData) {
+    step1Desc.textContent = `${branchData.display} शाखेसाठी: ${branchData.counselling}`;
+  }
+  if (step1Link) {
+    step1Link.href = steps[1].link;
+  }
+  showProcessStep(1);
 }
 
 function showProcessStep(stepNumber) {
   document.querySelectorAll('.process-step').forEach((step, index) => {
     step.classList.toggle('active', index + 1 === stepNumber);
   });
-  const info = processSteps[stepNumber];
+  const steps = buildProcessSteps();
+  const info = steps[stepNumber];
   const box = document.getElementById('stepInfo');
   if (!info || !box) return;
   box.innerHTML = `<h4>${info.title}</h4><p>${info.text} <a href="${info.link}" target="_blank" rel="noopener noreferrer">${info.label}</a>.</p>`;
