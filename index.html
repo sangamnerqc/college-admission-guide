@@ -257,39 +257,6 @@ footer a { color: var(--gold); text-decoration: none; }
   line-height: 1.7;
 }
 .admission-summary strong { color: var(--saffron); }
-
-.sheet-log-status {
-  display: none;
-  margin-top: 0.85rem;
-  padding: 0.8rem 1rem;
-  border-radius: 10px;
-  font-size: 0.84rem;
-  line-height: 1.55;
-  border: 1px solid var(--border);
-  background: #F9FAFB;
-  color: var(--muted);
-}
-.sheet-log-status.show { display: block; }
-.sheet-log-status.saving {
-  background: #EFF6FF;
-  border-color: #BFDBFE;
-  color: #1D4ED8;
-}
-.sheet-log-status.saved {
-  background: #F0FDF4;
-  border-color: #BBF7D0;
-  color: var(--green);
-}
-.sheet-log-status.warning {
-  background: #FFF8F0;
-  border-color: #FBBF24;
-  color: #92400E;
-}
-.sheet-log-status.error {
-  background: #FEF2F2;
-  border-color: #FECACA;
-  color: #B91C1C;
-}
 .process-card {
   padding: 1.5rem;
 }
@@ -816,7 +783,6 @@ body.intro-active footer {
           <div class="admission-summary" id="admissionSummary">
             <strong>सूचना:</strong> वरील माहिती English मध्ये भरल्यानंतर बटणावर क्लिक करा. त्यानंतरच प्रवेश प्रक्रियेचा वृक्ष-आरेख दिसेल.
           </div>
-          <div class="sheet-log-status" id="sheetLogStatus" aria-live="polite"></div>
         </div>
       </div>
 
@@ -1043,83 +1009,6 @@ function toggleDoc(el, type, total) {
   document.getElementById(`${type}-label`).textContent = `${count} of ${total} ready`;
 }
 
-
-/* Google Sheet logging setup
-   Step 1: Create and deploy the Apps Script Web App given separately.
-   Step 2: Paste the deployed Web App URL below.
-*/
-const GOOGLE_SHEET_WEB_APP_URL = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
-let lastSubmittedAdmissionSignature = '';
-
-function setSheetLogStatus(message, type = 'warning') {
-  const statusBox = document.getElementById('sheetLogStatus');
-  if (!statusBox) return;
-  statusBox.className = `sheet-log-status show ${type}`;
-  statusBox.innerHTML = message;
-}
-
-function clearSheetLogStatus() {
-  const statusBox = document.getElementById('sheetLogStatus');
-  if (!statusBox) return;
-  statusBox.className = 'sheet-log-status';
-  statusBox.innerHTML = '';
-}
-
-function getAdmissionLogPayload() {
-  const name = document.getElementById('studentName')?.value.trim() || '';
-  const contact = document.getElementById('studentContact')?.value.trim() || '';
-  const branchValue = document.getElementById('studentBranch')?.value || '';
-  const branchData = getBranchData();
-  return {
-    timestampLocal: new Date().toLocaleString('en-IN'),
-    studentName: name,
-    contactNumber: contact,
-    branchCode: branchValue,
-    branch: branchData?.display || '',
-    counsellingLocation: branchData?.counselling || '',
-    formFillingLocation: commonAdmissionLocations.formFilling.name,
-    formCheckingLocation: commonAdmissionLocations.formChecking.name,
-    feesLocation: commonAdmissionLocations.account.name,
-    source: 'Sangamner College Admission Guide Web App',
-    pageUrl: window.location.href,
-    userAgent: navigator.userAgent
-  };
-}
-
-function logStudentInfoToGoogleSheet(payload) {
-  if (!GOOGLE_SHEET_WEB_APP_URL || GOOGLE_SHEET_WEB_APP_URL.includes('AKfycbwlax_SEhtYPYpgVEUhpfyUZENTTva62whgU18QArnH0_1t1s2uKe9SktW7TGyx2Zjm')) {
-    setSheetLogStatus('⚠️ Google Sheet logging is ready, but the Apps Script Web App URL is not added yet. Paste your Web App URL in <strong>GOOGLE_SHEET_WEB_APP_URL</strong>.', 'warning');
-    return;
-  }
-
-  const signature = JSON.stringify({
-    studentName: payload.studentName,
-    contactNumber: payload.contactNumber,
-    branchCode: payload.branchCode
-  });
-
-  if (signature === lastSubmittedAdmissionSignature) {
-    setSheetLogStatus('✅ ही विद्यार्थी माहिती आधीच Google Sheet कडे पाठवली आहे.', 'saved');
-    return;
-  }
-
-  setSheetLogStatus('⏳ विद्यार्थी माहिती College Google Sheet मध्ये पाठवली जात आहे...', 'saving');
-
-  fetch(GOOGLE_SHEET_WEB_APP_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify(payload)
-  })
-  .then(() => {
-    lastSubmittedAdmissionSignature = signature;
-    setSheetLogStatus('✅ विद्यार्थी माहिती College Google Sheet कडे पाठवली आहे. कृपया Sheet मध्ये नोंद तपासा.', 'saved');
-  })
-  .catch(() => {
-    setSheetLogStatus('❌ Google Sheet मध्ये माहिती पाठवताना अडचण आली. Apps Script Web App URL आणि deployment permission तपासा.', 'error');
-  });
-}
-
 const branchCounsellingLocations = {
   arts: {
     display: 'Arts',
@@ -1234,10 +1123,6 @@ function updateAdmissionSummary(forceShow = false) {
   const processPanel = document.getElementById('processPanel');
   if (!box) return;
 
-  if (!forceShow) {
-    clearSheetLogStatus();
-  }
-
   if (!name && !contact && !branchData && !forceShow) {
     box.innerHTML = '<strong>सूचना:</strong> वरील माहिती English मध्ये भरल्यानंतर बटणावर क्लिक करा. त्यानंतरच प्रवेश प्रक्रियेचा वृक्ष-आरेख दिसेल.';
     return;
@@ -1261,11 +1146,6 @@ function updateAdmissionSummary(forceShow = false) {
   const counselling = escapeHtml(branchData?.counselling || 'Location will be shown after branch selection');
 
   box.innerHTML = `<strong>${displayName}</strong> wants admission in <strong>${displayBranch}</strong> branch.<br/>Contact Number: ${displayContact}<br/>Counselling Location: <strong>${counselling}</strong><br/><strong>पुढील क्रम:</strong> समुपदेशन → अर्ज भरणे → अर्ज तपासणी → फी भरणे व पावती घेणे.`;
-
-  if (forceShow) {
-    const payload = getAdmissionLogPayload();
-    logStudentInfoToGoogleSheet(payload);
-  }
 
   if (processPanel?.classList.contains('show') || forceShow) {
     renderProcessForBranch();
