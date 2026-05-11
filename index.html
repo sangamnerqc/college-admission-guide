@@ -209,14 +209,86 @@ footer a { color: var(--gold); text-decoration: none; }
   .form-row { grid-template-columns: 1fr; }
   .hero-cards { gap: 0.75rem; }
 }
+
+
+/* 7-second Marathi welcome intro */
+body.intro-active {
+  overflow: hidden;
+}
+body.intro-active nav,
+body.intro-active .page,
+body.intro-active footer {
+  visibility: hidden;
+}
+#welcomeIntro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--deep) 0%, var(--navy) 55%, var(--saffron) 100%);
+  color: var(--white);
+}
+#welcomeIntro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(240,165,0,0.35), transparent 32%),
+              radial-gradient(circle at bottom right, rgba(255,255,255,0.12), transparent 35%);
+  pointer-events: none;
+}
+.welcome-box {
+  position: relative;
+  max-width: 980px;
+  padding: 2rem;
+}
+.welcome-text {
+  font-family: 'Playfair Display', 'DM Sans', serif;
+  font-size: clamp(1.6rem, 5vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.55;
+  text-shadow: 0 4px 18px rgba(0,0,0,0.35);
+}
+.welcome-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(18px) scale(0.98);
+  margin: 0 0.16em;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.welcome-word.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.welcome-subline {
+  margin-top: 1.3rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.95;
+}
+#welcomeIntro.hide-intro {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
 </style>
 </head>
-<body>
+<body class="intro-active">
 
-<!-- WELCOME VOICE: place welcome.mp4 in the same folder as index.html -->
-<audio id="welcomeVoice" src="./welcome.mp4" preload="auto"></audio>
-<div id="voiceStatus" style="position:fixed;right:12px;bottom:12px;z-index:99999;background:#0D1B2A;color:#fff;padding:8px 12px;border-radius:8px;font-family:Arial,sans-serif;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,.25);display:none;"></div>
-
+<!-- 7-second Marathi welcome intro -->
+<div id="welcomeIntro" aria-live="polite">
+  <div class="welcome-box">
+    <div class="welcome-text" id="welcomeText"></div>
+    <div class="welcome-subline">Sangamner College Admission Guide</div>
+  </div>
+</div>
 
 
 <nav>
@@ -317,7 +389,7 @@ footer a { color: var(--gold); text-decoration: none; }
           <div class="stream-full">Bachelor of Commerce</div>
         </div>
         <div class="stream-body">
-          <div class="stream-eligibility">✅ HSC Pass ( Commerce and Science ) – Merit based</div>
+          <div class="stream-eligibility">✅ HSC Pass (any stream) – Merit based</div>
           <div class="stream-subjects">
             <span class="subject-tag">Accountancy</span><span class="subject-tag">Business Economics</span><span class="subject-tag">Commerce</span><span class="subject-tag">Business Law</span><span class="subject-tag">Mathematics</span>
           </div>
@@ -624,81 +696,6 @@ footer a { color: var(--gold); text-decoration: none; }
 </footer>
 
 <script>
-
-/* ================= WELCOME VOICE SETUP =================
-   Required: keep welcome.mp4 in the same folder as this index.html.
-   Note: Audible autoplay is blocked by many browsers unless the site/browser allows it.
-   This script:
-   1) tries autoplay on every load/refresh,
-   2) if blocked, plays on the first click/tap/keypress anywhere,
-   3) shows a small diagnostic message if the file is missing or blocked.
-========================================================== */
-(function () {
-  const AUDIO_FILE = './welcome.mp4';
-  const voice = document.getElementById('welcomeVoice');
-  const statusBox = document.getElementById('voiceStatus');
-  const DEBUG_STATUS = true; // change to false after testing
-
-  if (!voice) return;
-
-  voice.src = AUDIO_FILE + '?v=' + Date.now(); // avoids cache while testing
-  voice.preload = 'auto';
-  voice.volume = 1;
-  voice.muted = false;
-  voice.load();
-
-  function showStatus(message, good = false) {
-    if (!DEBUG_STATUS || !statusBox) return;
-    statusBox.textContent = message;
-    statusBox.style.background = good ? '#1B6B3A' : '#B45309';
-    statusBox.style.display = 'block';
-    clearTimeout(showStatus.timer);
-    showStatus.timer = setTimeout(() => { statusBox.style.display = 'none'; }, 6000);
-  }
-
-  function resetVoice() {
-    voice.muted = false;
-    voice.volume = 1;
-    try { voice.currentTime = 0; } catch (e) {}
-  }
-
-  async function playWelcome(reason) {
-    resetVoice();
-    try {
-      const playPromise = voice.play();
-      if (playPromise !== undefined) await playPromise;
-      showStatus('Welcome voice playing ✓', true);
-      removeFirstGestureListeners();
-    } catch (err) {
-      showStatus('Voice blocked by browser. Click/tap once anywhere.', false);
-      console.warn('Welcome voice play failed:', reason, err);
-    }
-  }
-
-  function removeFirstGestureListeners() {
-    ['pointerdown','touchstart','mousedown','click','keydown'].forEach(evt => {
-      document.removeEventListener(evt, onFirstGesture, true);
-    });
-  }
-
-  function onFirstGesture() {
-    playWelcome('first user gesture');
-  }
-
-  voice.addEventListener('canplaythrough', () => showStatus('welcome.mp4 loaded. Trying voice...', true), { once: true });
-  voice.addEventListener('error', () => {
-    showStatus('welcome.mp4 not found / unsupported. Check file name and folder.', false);
-    console.error('Cannot load welcome.mp4. Keep it beside index.html. File names are case-sensitive online.');
-  });
-
-  ['pointerdown','touchstart','mousedown','click','keydown'].forEach(evt => {
-    document.addEventListener(evt, onFirstGesture, { once: true, capture: true });
-  });
-
-  window.addEventListener('DOMContentLoaded', () => playWelcome('DOMContentLoaded'));
-  window.addEventListener('pageshow', () => playWelcome('pageshow'));
-})();
-
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -763,5 +760,46 @@ function toggleDoc(el, type, total) {
   document.getElementById(`${type}-label`).textContent = `${count} of ${total} ready`;
 }
 </script>
+
+<script>
+(function () {
+  const welcomeSentence = 'प्रवेशासाठी आलेल्या सर्व पालकांचे आणि विद्यार्थ्यांचे शिक्षण प्रसारक संस्थेचे संगमनेर महाविद्यालय सहर्ष स्वागत करत आहे';
+  const totalIntroTime = 7000;
+
+  function startWelcomeIntro() {
+    const intro = document.getElementById('welcomeIntro');
+    const textBox = document.getElementById('welcomeText');
+    if (!intro || !textBox) return;
+
+    const words = welcomeSentence.trim().split(/\s+/);
+    textBox.innerHTML = words
+      .map(word => `<span class="welcome-word">${word}</span>`)
+      .join(' ');
+
+    const spans = textBox.querySelectorAll('.welcome-word');
+    const wordDelay = Math.max(120, Math.floor((totalIntroTime - 1000) / spans.length));
+
+    spans.forEach((span, index) => {
+      setTimeout(() => span.classList.add('show'), index * wordDelay);
+    });
+
+    setTimeout(() => {
+      intro.classList.add('hide-intro');
+      document.body.classList.remove('intro-active');
+      if (typeof showPage === 'function') {
+        showPage('home');
+      }
+      setTimeout(() => intro.remove(), 600);
+    }, totalIntroTime);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startWelcomeIntro);
+  } else {
+    startWelcomeIntro();
+  }
+})();
+</script>
+
 </body>
 </html>
