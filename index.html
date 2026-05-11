@@ -213,11 +213,10 @@ footer a { color: var(--gold); text-decoration: none; }
 </head>
 <body>
 
-<!-- WELCOME VOICE: keep welcome.mp4 in the same folder as index.html -->
-<!-- No visible button. It tries autoplay on load, and if blocked, plays on the first click/tap anywhere. -->
-<video id="welcomeVoice" preload="auto" playsinline webkit-playsinline style="position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;left:-9999px;top:-9999px;">
-  <source src="./welcome.mp4" type="video/mp4">
-</video>
+<!-- WELCOME VOICE: place welcome.mp4 in the same folder as index.html -->
+<audio id="welcomeVoice" src="./welcome.mp4" preload="auto"></audio>
+<div id="voiceStatus" style="position:fixed;right:12px;bottom:12px;z-index:99999;background:#0D1B2A;color:#fff;padding:8px 12px;border-radius:8px;font-family:Arial,sans-serif;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,.25);display:none;"></div>
+
 
 
 <nav>
@@ -626,44 +625,78 @@ footer a { color: var(--gold); text-decoration: none; }
 
 <script>
 
-(function welcomeVoiceSetup() {
+/* ================= WELCOME VOICE SETUP =================
+   Required: keep welcome.mp4 in the same folder as this index.html.
+   Note: Audible autoplay is blocked by many browsers unless the site/browser allows it.
+   This script:
+   1) tries autoplay on every load/refresh,
+   2) if blocked, plays on the first click/tap/keypress anywhere,
+   3) shows a small diagnostic message if the file is missing or blocked.
+========================================================== */
+(function () {
+  const AUDIO_FILE = './welcome.mp4';
   const voice = document.getElementById('welcomeVoice');
+  const statusBox = document.getElementById('voiceStatus');
+  const DEBUG_STATUS = true; // change to false after testing
+
   if (!voice) return;
+
+  voice.src = AUDIO_FILE + '?v=' + Date.now(); // avoids cache while testing
+  voice.preload = 'auto';
+  voice.volume = 1;
+  voice.muted = false;
+  voice.load();
+
+  function showStatus(message, good = false) {
+    if (!DEBUG_STATUS || !statusBox) return;
+    statusBox.textContent = message;
+    statusBox.style.background = good ? '#1B6B3A' : '#B45309';
+    statusBox.style.display = 'block';
+    clearTimeout(showStatus.timer);
+    showStatus.timer = setTimeout(() => { statusBox.style.display = 'none'; }, 6000);
+  }
 
   function resetVoice() {
     voice.muted = false;
-    voice.defaultMuted = false;
     voice.volume = 1;
     try { voice.currentTime = 0; } catch (e) {}
   }
 
-  async function playWelcomeVoice() {
+  async function playWelcome(reason) {
     resetVoice();
     try {
-      await voice.play();
-      removeGestureListeners();
-    } catch (error) {
-      /* No button is shown. If autoplay is blocked, the first click/tap anywhere on the page will play it. */
-      console.warn('Welcome voice could not autoplay. It will play after the first user click/tap.', error);
+      const playPromise = voice.play();
+      if (playPromise !== undefined) await playPromise;
+      showStatus('Welcome voice playing ✓', true);
+      removeFirstGestureListeners();
+    } catch (err) {
+      showStatus('Voice blocked by browser. Click/tap once anywhere.', false);
+      console.warn('Welcome voice play failed:', reason, err);
     }
   }
 
-  function playOnFirstGesture() {
-    playWelcomeVoice();
-  }
-
-  function removeGestureListeners() {
-    ['pointerdown', 'click', 'touchstart', 'keydown'].forEach(eventName => {
-      document.removeEventListener(eventName, playOnFirstGesture, true);
+  function removeFirstGestureListeners() {
+    ['pointerdown','touchstart','mousedown','click','keydown'].forEach(evt => {
+      document.removeEventListener(evt, onFirstGesture, true);
     });
   }
 
-  ['pointerdown', 'click', 'touchstart', 'keydown'].forEach(eventName => {
-    document.addEventListener(eventName, playOnFirstGesture, { once: true, capture: true });
+  function onFirstGesture() {
+    playWelcome('first user gesture');
+  }
+
+  voice.addEventListener('canplaythrough', () => showStatus('welcome.mp4 loaded. Trying voice...', true), { once: true });
+  voice.addEventListener('error', () => {
+    showStatus('welcome.mp4 not found / unsupported. Check file name and folder.', false);
+    console.error('Cannot load welcome.mp4. Keep it beside index.html. File names are case-sensitive online.');
   });
 
-  window.addEventListener('DOMContentLoaded', playWelcomeVoice);
-  window.addEventListener('pageshow', playWelcomeVoice);
+  ['pointerdown','touchstart','mousedown','click','keydown'].forEach(evt => {
+    document.addEventListener(evt, onFirstGesture, { once: true, capture: true });
+  });
+
+  window.addEventListener('DOMContentLoaded', () => playWelcome('DOMContentLoaded'));
+  window.addEventListener('pageshow', () => playWelcome('pageshow'));
 })();
 
 function showPage(id) {
