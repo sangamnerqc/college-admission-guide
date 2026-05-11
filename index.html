@@ -285,7 +285,7 @@ footer a { color: var(--gold); text-decoration: none; }
           <div class="stream-full">Bachelor of Arts</div>
         </div>
         <div class="stream-body">
-          <div class="stream-eligibility">✅ SSC Pass (any stream) – Merit based</div>
+          <div class="stream-eligibility">✅ HSC Pass (any stream) – Merit based</div>
           <div class="stream-subjects">
             <span class="subject-tag">Marathi</span><span class="subject-tag">Hindi</span><span class="subject-tag">English</span><span class="subject-tag">Sanskrit</span><span class="subject-tag">Economics</span><span class="subject-tag">Political Sci.</span><span class="subject-tag">Geography</span><span class="subject-tag">Philosophy</span><span class="subject-tag">Yoga</span>
           </div>
@@ -311,7 +311,7 @@ footer a { color: var(--gold); text-decoration: none; }
           <div class="stream-full">Bachelor of Commerce</div>
         </div>
         <div class="stream-body">
-          <div class="stream-eligibility">✅ SSC Pass (any stream) – Merit based</div>
+          <div class="stream-eligibility">✅ HSC Pass (any stream) – Merit based</div>
           <div class="stream-subjects">
             <span class="subject-tag">Accountancy</span><span class="subject-tag">Business Economics</span><span class="subject-tag">Commerce</span><span class="subject-tag">Business Law</span><span class="subject-tag">Mathematics</span>
           </div>
@@ -332,7 +332,7 @@ footer a { color: var(--gold); text-decoration: none; }
           <div class="stream-full">Bachelor of Science</div>
         </div>
         <div class="stream-body">
-          <div class="stream-eligibility">✅ SSC with Science – Merit based</div>
+          <div class="stream-eligibility">✅ HSC with Science – Merit based</div>
           <div class="stream-subjects">
             <span class="subject-tag">Physics</span><span class="subject-tag">Chemistry</span><span class="subject-tag">Botany</span><span class="subject-tag">Zoology</span><span class="subject-tag">Electronics</span><span class="subject-tag">Mathematics</span><span class="subject-tag">Microbiology</span>
           </div>
@@ -356,7 +356,7 @@ footer a { color: var(--gold); text-decoration: none; }
           <div class="stream-full">Bachelor of Science – Computer Science</div>
         </div>
         <div class="stream-body">
-          <div class="stream-eligibility">✅ SSC Pass (any stream) – Merit based</div>
+          <div class="stream-eligibility">✅ HSC Pass (any stream) – Merit based</div>
           <div class="stream-subjects">
             <span class="subject-tag">Programming</span><span class="subject-tag">Data Structures</span><span class="subject-tag">Database</span><span class="subject-tag">Networking</span><span class="subject-tag">Web Technology</span>
           </div>
@@ -410,7 +410,7 @@ footer a { color: var(--gold); text-decoration: none; }
           <div class="stream-full">Bachelor of Vocation – 4 Specializations</div>
         </div>
         <div class="stream-body">
-          <div class="stream-eligibility">✅ SSC Pass (any stream) – Merit based</div>
+          <div class="stream-eligibility">✅ HSC Pass (any stream) – Merit based</div>
           <div class="stream-subjects">
             <span class="subject-tag">Hospitality &amp; Tourism</span><span class="subject-tag">Software Dev.</span><span class="subject-tag">Dairy Products</span><span class="subject-tag">Accounting &amp; Taxation</span>
           </div>
@@ -431,7 +431,7 @@ footer a { color: var(--gold); text-decoration: none; }
           <div class="stream-full">B.Sc. Agriculture &amp; Soil Science</div>
         </div>
         <div class="stream-body">
-          <div class="stream-eligibility">✅ SSC with Science – Merit based</div>
+          <div class="stream-eligibility">✅ HSC with Science – Merit based</div>
           <div class="stream-subjects">
             <span class="subject-tag">Agriculture</span><span class="subject-tag">Soil Science</span><span class="subject-tag">Botany</span><span class="subject-tag">Chemistry</span>
           </div>
@@ -450,18 +450,18 @@ footer a { color: var(--gold); text-decoration: none; }
 <div id="eligibility" class="page">
   <div class="section">
     <div class="section-title">Eligibility <span>Checker</span></div>
-    <p class="section-sub">Enter your SSC details to see which courses you are eligible for at Sangamner College</p>
+    <p class="section-sub">Enter your HSC details to see which courses you are eligible for at Sangamner College</p>
     <div class="divider"></div>
     <div class="checker-wrap">
       <div class="checker-top">
         <h2>🎓 Find Your Course</h2>
-        <p>We'll match you to eligible courses based on your SSC stream, marks, and interest</p>
+        <p>We'll match you to eligible courses based on your HSC stream, marks, and interest</p>
       </div>
       <div class="checker-form">
         <div class="form-row">
           <div class="form-group">
-            <label>SSC Stream <span>*</span></label>
-            <select class="form-control" id="sscStream">
+            <label>HSC Stream <span>*</span></label>
+            <select class="form-control" id="HSCStream">
               <option value="">-- Select Stream --</option>
               <option value="science">Science (with Mathematics)</option>
               <option value="science_bio">Science (Biology / no Maths)</option>
@@ -471,8 +471,8 @@ footer a { color: var(--gold); text-decoration: none; }
             </select>
           </div>
           <div class="form-group">
-            <label>SSC Percentage <span>*</span></label>
-            <input type="number" class="form-control" id="sscPercent" placeholder="e.g. 72" min="0" max="100"/>
+            <label>HSC Percentage <span>*</span></label>
+            <input type="number" class="form-control" id="HSCPercent" placeholder="e.g. 72" min="0" max="100"/>
           </div>
         </div>
         <div class="form-row">
@@ -525,11 +525,10 @@ footer a { color: var(--gold); text-decoration: none; }
         <h3>📋 Required Documents <span class="badge required">Must Have</span></h3>
         <div class="progress-bar-wrap"><div class="progress-bar" id="req-bar" style="width:0%"></div></div>
         <p class="progress-label" id="req-label">0 of 7 ready</p>
-        <div class="doc-item" onclick="toggleDoc(this,'req',7)"><div class="doc-checkbox"></div><div class="doc-text">SSC (10th) Mark Sheet – Original + 2 copies<div class="doc-sub">Board-issued original marksheet mandatory</div></div></div>
-        <div class="doc-item" onclick="toggleDoc(this,'req',7)"><div class="doc-checkbox"></div><div class="doc-text">SSC Passing Certificate<div class="doc-sub">Original + 2 attested photocopies</div></div></div>
+        <div class="doc-item" onclick="toggleDoc(this,'req',7)"><div class="doc-checkbox"></div><div class="doc-text">HSC (12th) Mark Sheet Photocopy <div class="doc-sub"> </div></div></div>
         <div class="doc-item" onclick="toggleDoc(this,'req',7)"><div class="doc-checkbox"></div><div class="doc-text">School Leaving / Transfer Certificate (LC/TC)<div class="doc-sub">From last attended school/college</div></div></div>
         <div class="doc-item" onclick="toggleDoc(this,'req',7)"><div class="doc-checkbox"></div><div class="doc-text">Aadhar Card (photocopy)<div class="doc-sub">For ID verification and scholarship</div></div></div>
-        <div class="doc-item" onclick="toggleDoc(this,'req',7)"><div class="doc-checkbox"></div><div class="doc-text">Passport Size Photographs – 6 copies<div class="doc-sub">Recent, white background</div></div></div>
+        <div class="doc-item" onclick="toggleDoc(this,'req',7)"><div class="doc-checkbox"></div><div class="doc-text">Passport Size Photograph –  Softcopy<div class="doc-sub">Recent, white background</div></div></div>
         <div class="doc-item" onclick="toggleDoc(this,'req',7)"><div class="doc-checkbox"></div><div class="doc-text">Caste Certificate (if applicable)<div class="doc-sub">For SC / ST / OBC / NT / VJ / DT categories</div></div></div>
         <div class="doc-item" onclick="toggleDoc(this,'req',7)"><div class="doc-checkbox"></div><div class="doc-text">Non-Creamy Layer Certificate (OBC/NT)<div class="doc-sub">Issued within the last one year</div></div></div>
       </div>
@@ -628,10 +627,10 @@ function showPage(id) {
 }
 
 function checkEligibility() {
-  const stream = document.getElementById('sscStream').value;
-  const percent = parseFloat(document.getElementById('sscPercent').value);
+  const stream = document.getElementById('HSCStream').value;
+  const percent = parseFloat(document.getElementById('HSCPercent').value);
   const interest = document.getElementById('interest').value;
-  if (!stream || isNaN(percent) || percent < 0 || percent > 100) { alert('Please enter your SSC stream and a valid percentage.'); return; }
+  if (!stream || isNaN(percent) || percent < 0 || percent > 100) { alert('Please enter your HSC stream and a valid percentage.'); return; }
 
   const courses = [
     { name: 'F.Y. B.A.', streams: ['arts','commerce','any','science','science_bio'], min: 35, color: '#6B21A8', type: 'arts', cet: false },
@@ -659,12 +658,12 @@ function checkEligibility() {
       document.getElementById('resultTitle').textContent = 'No matching courses found';
       document.getElementById('resultSub').textContent = 'Try changing the interest filter or contact the college office.';
       document.getElementById('resultCourses').innerHTML = '';
-      document.getElementById('resultNote').textContent = 'Minimum 35% SSC pass required for most courses. CET-based courses require 45%+.';
+      document.getElementById('resultNote').textContent = 'Minimum 35% HSC pass required for most courses. CET-based courses require 45%+.';
     } else {
       hdr.className = 'result-header eligible';
       document.getElementById('resultIcon').textContent = '🎉';
       document.getElementById('resultTitle').textContent = `You are eligible for ${eligible.length} course${eligible.length > 1 ? 's' : ''}!`;
-      document.getElementById('resultSub').textContent = `${stream.replace('_',' ')} stream · ${percent}% SSC`;
+      document.getElementById('resultSub').textContent = `${stream.replace('_',' ')} stream · ${percent}% HSC`;
       document.getElementById('resultCourses').innerHTML = eligible.map(c =>
         `<div class="result-course-item"><div class="dot" style="background:${c.color}"></div><div style="flex:1">${c.name}</div>${c.cet ? '<span style="font-size:0.72rem;background:#FEF3C7;color:#92400E;padding:0.15rem 0.5rem;border-radius:10px;font-weight:600;">CET Required</span>' : ''}</div>`
       ).join('');
