@@ -203,6 +203,197 @@ footer a { color: var(--gold); text-decoration: none; }
 .notice-box strong { color: #92400E; }
 .notice-box p { font-size: 0.85rem; color: #78350F; line-height: 1.6; }
 
+
+
+/* ADMISSION PROCESS - MARATHI */
+.admission-wrap {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1.4fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+.admission-form-card,
+.process-card,
+.step-info-card {
+  background: var(--white);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.admission-form-head {
+  background: linear-gradient(135deg, var(--deep), var(--navy));
+  color: #fff;
+  padding: 1.5rem;
+}
+.admission-form-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem;
+  margin-bottom: 0.35rem;
+}
+.admission-form-head p {
+  font-size: 0.86rem;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.6;
+}
+.admission-form-body {
+  padding: 1.5rem;
+}
+.marathi-label {
+  display: block;
+  font-weight: 700;
+  color: var(--deep);
+  font-size: 0.9rem;
+  margin-bottom: 0.45rem;
+}
+.marathi-label span { color: var(--saffron); }
+.admission-summary {
+  margin-top: 1rem;
+  background: #FFF8F0;
+  border-left: 4px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  padding: 1rem;
+  font-size: 0.86rem;
+  color: var(--text);
+  line-height: 1.7;
+}
+.admission-summary strong { color: var(--saffron); }
+.process-card {
+  padding: 1.5rem;
+}
+.process-title-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+.process-title-row h3 {
+  font-family: 'Playfair Display', serif;
+  color: var(--deep);
+  font-size: 1.35rem;
+}
+.process-badge {
+  background: #DCFCE7;
+  color: var(--green);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+}
+.process-tree {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(145px, 1fr));
+  gap: 1.1rem;
+  position: relative;
+  margin: 1.5rem 0;
+}
+.process-tree::before {
+  content: '';
+  position: absolute;
+  top: 42px;
+  left: 8%;
+  right: 8%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--saffron), var(--gold), var(--green));
+  border-radius: 4px;
+  z-index: 0;
+}
+.process-step {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 1rem 0.85rem;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.process-step:hover,
+.process-step.active {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--saffron);
+}
+.step-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin-bottom: 0.65rem;
+  box-shadow: 0 6px 18px rgba(212,69,12,0.25);
+}
+.step-title {
+  font-weight: 800;
+  color: var(--deep);
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+}
+.step-desc {
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.45;
+  min-height: 2.2rem;
+}
+.location-link {
+  display: inline-block;
+  margin-top: 0.65rem;
+  color: var(--saffron);
+  font-weight: 800;
+  text-decoration: none;
+  font-size: 0.78rem;
+}
+.location-link:hover { text-decoration: underline; }
+.process-note {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  color: var(--green);
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+.step-info-card {
+  margin-top: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 5px solid var(--saffron);
+}
+.step-info-card h4 {
+  color: var(--deep);
+  font-size: 1rem;
+  margin-bottom: 0.45rem;
+}
+.step-info-card p {
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+.step-info-card a {
+  color: var(--saffron);
+  font-weight: 800;
+  text-decoration: none;
+}
+.step-info-card a:hover { text-decoration: underline; }
+
+@media (max-width: 850px) {
+  .admission-wrap { grid-template-columns: 1fr; }
+  .process-tree { grid-template-columns: 1fr; }
+  .process-tree::before {
+    top: 8%; bottom: 8%; left: 27px; right: auto;
+    width: 4px; height: auto;
+    background: linear-gradient(180deg, var(--saffron), var(--gold), var(--green));
+  }
+  .process-step { text-align: left; padding-left: 4.6rem; min-height: 92px; }
+  .step-circle { position: absolute; left: 0.8rem; top: 1rem; width: 44px; height: 44px; font-size: 1.15rem; }
+}
+
 @media (max-width: 600px) {
   .nav-links button { font-size: 0.72rem; padding: 0.35rem 0.55rem; }
   .nav-brand { font-size: 1rem; }
@@ -299,7 +490,7 @@ body.intro-active footer {
   <div class="nav-links">
     <button class="active" onclick="showPage('home')">🏠 Home</button>
     <button onclick="showPage('streams')">📚 Courses</button>
-    <button onclick="showPage('eligibility')">✅ Eligibility</button>
+    <button onclick="showPage('admission')">🧭 प्रवेश प्रक्रिया</button>
     <button onclick="showPage('documents')">📄 Documents</button>
     <button onclick="showPage('contacts')">📞 Contacts</button>
   </div>
@@ -329,9 +520,9 @@ body.intro-active footer {
         <div class="quick-head arts"><div class="quick-icon">📚</div><div class="quick-title">Browse Courses</div><div class="quick-desc">All streams with subjects & faculty</div></div>
         <div class="quick-foot">Arts · Commerce · Science · B.Voc</div>
       </div>
-      <div class="quick-card" onclick="showPage('eligibility')">
-        <div class="quick-head science"><div class="quick-icon">✅</div><div class="quick-title">Check Eligibility</div><div class="quick-desc">Find courses you qualify for</div></div>
-        <div class="quick-foot">Based on HSC marks & stream</div>
+      <div class="quick-card" onclick="showPage('admission')">
+        <div class="quick-head science"><div class="quick-icon">🧭</div><div class="quick-title">प्रवेश प्रक्रिया</div><div class="quick-desc">विद्यार्थ्यांसाठी संपूर्ण प्रवेश मार्गदर्शन</div></div>
+        <div class="quick-foot">समुपदेशन · अर्ज · तपासणी · फी पावती</div>
       </div>
       <div class="quick-card" onclick="showPage('documents')">
         <div class="quick-head commerce"><div class="quick-icon">📄</div><div class="quick-title">Document Checklist</div><div class="quick-desc">Track your admission documents</div></div>
@@ -524,67 +715,91 @@ body.intro-active footer {
   </div>
 </div>
 
-<!-- ELIGIBILITY -->
-<div id="eligibility" class="page">
+<!-- ADMISSION PROCESS -->
+<div id="admission" class="page">
   <div class="section">
-    <div class="section-title">Eligibility <span>Checker</span></div>
-    <p class="section-sub">Enter your HSC details to see which courses you are eligible for at Sangamner College</p>
+    <div class="section-title">प्रवेश <span>प्रक्रिया</span></div>
+    <p class="section-sub">विद्यार्थ्याची प्राथमिक माहिती भरा आणि प्रवेशाची संपूर्ण पायरी-पायरीने माहिती पाहा.</p>
     <div class="divider"></div>
-    <div class="checker-wrap">
-      <div class="checker-top">
-        <h2>🎓 Find Your Course</h2>
-        <p>We'll match you to eligible courses based on your HSC stream, marks, and interest</p>
+
+    <div class="admission-wrap">
+      <div class="admission-form-card">
+        <div class="admission-form-head">
+          <h2>🎓 विद्यार्थी माहिती</h2>
+          <p>ही माहिती फक्त विद्यार्थ्याला प्रवेश प्रक्रियेचा योग्य मार्ग समजण्यासाठी वापरली जाईल.</p>
+        </div>
+        <div class="admission-form-body">
+          <div class="form-group">
+            <label class="marathi-label" for="studentName">विद्यार्थ्याचे पूर्ण नाव <span>*</span></label>
+            <input type="text" class="form-control" id="studentName" placeholder="उदा. अमोल संजय शिंदे" oninput="updateAdmissionSummary()"/>
+          </div>
+          <div class="form-group">
+            <label class="marathi-label" for="studentContact">संपर्क क्रमांक / ई-मेल <span>*</span></label>
+            <input type="text" class="form-control" id="studentContact" placeholder="मोबाईल क्रमांक किंवा ई-मेल" oninput="updateAdmissionSummary()"/>
+          </div>
+          <div class="form-group">
+            <label class="marathi-label" for="studentBranch">प्रवेश हवा असलेली शाखा <span>*</span></label>
+            <select class="form-control" id="studentBranch" onchange="updateAdmissionSummary()">
+              <option value="">-- शाखा निवडा --</option>
+              <option value="कला शाखा">कला शाखा</option>
+              <option value="वाणिज्य शाखा">वाणिज्य शाखा</option>
+              <option value="विज्ञान शाखा">विज्ञान शाखा</option>
+              <option value="बी.व्होक. / कौशल्याधारित अभ्यासक्रम">बी.व्होक. / कौशल्याधारित अभ्यासक्रम</option>
+              <option value="B.B.A. / B.B.A. (C.A.) / B.C.A. CET अभ्यासक्रम">B.B.A. / B.B.A. (C.A.) / B.C.A. CET अभ्यासक्रम</option>
+            </select>
+          </div>
+          <button class="btn-check" onclick="updateAdmissionSummary(true)">माझी प्रवेश प्रक्रिया दाखवा →</button>
+          <div class="admission-summary" id="admissionSummary">
+            <strong>सूचना:</strong> वर विद्यार्थी माहिती भरल्यानंतर खालील प्रवेश प्रक्रिया विद्यार्थ्याच्या शाखेनुसार समजून घ्या.
+          </div>
+        </div>
       </div>
-      <div class="checker-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label>HSC Stream <span>*</span></label>
-            <select class="form-control" id="HSCStream">
-              <option value="">-- Select Stream --</option>
-              <option value="science">Science (with Mathematics)</option>
-              <option value="science_bio">Science (Biology / no Maths)</option>
-              <option value="commerce">Commerce</option>
-              <option value="arts">Arts / Vocational</option>
-              <option value="any">Any / General</option>
-            </select>
+
+      <div>
+        <div class="process-card">
+          <div class="process-title-row">
+            <h3>🌳 प्रवेश प्रक्रियेचा वृक्ष-आरेख</h3>
+            <span class="process-badge">४ मुख्य टप्पे</span>
           </div>
-          <div class="form-group">
-            <label>HSC Percentage <span>*</span></label>
-            <input type="number" class="form-control" id="HSCPercent" placeholder="e.g. 72" min="0" max="100"/>
+
+          <div class="process-tree" aria-label="प्रवेश प्रक्रियेचा वृक्ष-आरेख">
+            <div class="process-step active" onclick="showProcessStep(1)">
+              <div class="step-circle">१</div>
+              <div class="step-title">समुपदेशन</div>
+              <div class="step-desc">कोर्स, विषय, पात्रता व कागदपत्रे यांची माहिती घ्या.</div>
+              <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Sangamner+College+Admission+Counselling" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
+            </div>
+
+            <div class="process-step" onclick="showProcessStep(2)">
+              <div class="step-circle">२</div>
+              <div class="step-title">अर्ज भरणे</div>
+              <div class="step-desc">ऑनलाईन/ऑफलाईन प्रवेश अर्ज काळजीपूर्वक भरा.</div>
+              <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Sangamner+College+Form+Filling+Counter" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
+            </div>
+
+            <div class="process-step" onclick="showProcessStep(3)">
+              <div class="step-circle">३</div>
+              <div class="step-title">अर्ज तपासणी</div>
+              <div class="step-desc">भरलेला अर्ज व सर्व कागदपत्रांची पडताळणी करून घ्या.</div>
+              <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Sangamner+College+Form+Checking+Counter" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
+            </div>
+
+            <div class="process-step" onclick="showProcessStep(4)">
+              <div class="step-circle">४</div>
+              <div class="step-title">फी भरणे व पावती घेणे</div>
+              <div class="step-desc">फी जमा करून प्रवेशाची अधिकृत पावती घ्या.</div>
+              <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Sangamner+College+Fees+Counter" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
+            </div>
+          </div>
+
+          <div class="process-note">
+            <strong>महत्त्वाचे:</strong> प्रत्येक टप्प्यावर मूळ कागदपत्रे व त्यांच्या छायांकित प्रती जवळ ठेवा. CET आधारित अभ्यासक्रमांसाठी CET स्कोअरकार्ड / अलॉटमेंट लेटर आवश्यक असू शकते.
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Category</label>
-            <select class="form-control" id="category">
-              <option value="open">Open / General</option>
-              <option value="obc">OBC / SEBC</option>
-              <option value="sc">SC</option>
-              <option value="st">ST</option>
-              <option value="nt">NT / VJ / DT</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Area of Interest</label>
-            <select class="form-control" id="interest">
-              <option value="all">Show All Eligible</option>
-              <option value="arts">Arts &amp; Humanities</option>
-              <option value="commerce">Commerce &amp; Business</option>
-              <option value="science">Science &amp; Technology</option>
-              <option value="vocational">Vocational / Skill-based</option>
-            </select>
-          </div>
-        </div>
-        <button class="btn-check" onclick="checkEligibility()">Check My Eligibility →</button>
-        <div class="result-box" id="resultBox">
-          <div class="result-header" id="resultHeader">
-            <div class="result-icon" id="resultIcon"></div>
-            <div><h3 id="resultTitle"></h3><p id="resultSub"></p></div>
-          </div>
-          <div class="result-body">
-            <div class="result-courses" id="resultCourses"></div>
-            <div class="result-note" id="resultNote"></div>
-          </div>
+
+        <div class="step-info-card" id="stepInfo">
+          <h4>१. समुपदेशन</h4>
+          <p>प्रथम समुपदेशन कक्षात जाऊन विद्यार्थ्याने कोणत्या शाखेत प्रवेश घ्यायचा आहे, कोणते विषय उपलब्ध आहेत, पात्रता काय आहे आणि कोणती कागदपत्रे आवश्यक आहेत याची माहिती घ्यावी. <a href="https://www.google.com/maps/search/?api=1&query=Sangamner+College+Admission+Counselling" target="_blank" rel="noopener noreferrer">समुपदेशन स्थान पाहा</a>.</p>
         </div>
       </div>
     </div>
@@ -699,7 +914,7 @@ body.intro-active footer {
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const pages = ['home','streams','eligibility','documents','contacts'];
+  const pages = ['home','streams','admission','documents','contacts'];
   document.querySelectorAll('.nav-links button').forEach((b,i) => b.classList.toggle('active', pages[i] === id));
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -759,6 +974,62 @@ function toggleDoc(el, type, total) {
   document.getElementById(`${type}-bar`).style.width = pct + '%';
   document.getElementById(`${type}-label`).textContent = `${count} of ${total} ready`;
 }
+
+const processSteps = {
+  1: {
+    title: '१. समुपदेशन',
+    text: 'समुपदेशन कक्षात विद्यार्थ्याला शाखा, विषय, पात्रता, फी, आवश्यक कागदपत्रे आणि पुढील टप्पे यांची माहिती दिली जाते.',
+    link: 'https://www.google.com/maps/search/?api=1&query=Sangamner+College+Admission+Counselling',
+    label: 'समुपदेशन स्थान पाहा'
+  },
+  2: {
+    title: '२. अर्ज भरणे',
+    text: 'विद्यार्थ्याने नाव, संपर्क माहिती, शाखा, विषय आणि आवश्यक तपशील अचूक भरावेत. ऑनलाईन अर्जाचा प्रिंटआउट जतन करून ठेवावा.',
+    link: 'https://www.google.com/maps/search/?api=1&query=Sangamner+College+Form+Filling+Counter',
+    label: 'अर्ज भरण्याचे स्थान पाहा'
+  },
+  3: {
+    title: '३. अर्ज तपासणी',
+    text: 'भरलेला अर्ज, मार्कशीट, LC/TC, आधार कार्ड, फोटो आणि लागू असल्यास जात/नॉन-क्रीमी लेयर/इतर प्रमाणपत्रे तपासणीसाठी सादर करावीत.',
+    link: 'https://www.google.com/maps/search/?api=1&query=Sangamner+College+Form+Checking+Counter',
+    label: 'अर्ज तपासणी स्थान पाहा'
+  },
+  4: {
+    title: '४. फी भरणे व पावती घेणे',
+    text: 'अर्ज तपासणी पूर्ण झाल्यावर फी जमा करावी आणि प्रवेश निश्चितीची अधिकृत पावती घ्यावी. पावती सुरक्षित ठेवणे आवश्यक आहे.',
+    link: 'https://www.google.com/maps/search/?api=1&query=Sangamner+College+Fees+Counter',
+    label: 'फी काउंटर स्थान पाहा'
+  }
+};
+
+function updateAdmissionSummary(forceShow = false) {
+  const name = document.getElementById('studentName')?.value.trim() || '';
+  const contact = document.getElementById('studentContact')?.value.trim() || '';
+  const branch = document.getElementById('studentBranch')?.value || '';
+  const box = document.getElementById('admissionSummary');
+  if (!box) return;
+
+  if (!name && !contact && !branch && !forceShow) {
+    box.innerHTML = '<strong>सूचना:</strong> वर विद्यार्थी माहिती भरल्यानंतर खालील प्रवेश प्रक्रिया विद्यार्थ्याच्या शाखेनुसार समजून घ्या.';
+    return;
+  }
+
+  const displayName = name || 'विद्यार्थी';
+  const displayContact = contact || 'संपर्क माहिती भरलेली नाही';
+  const displayBranch = branch || 'शाखा निवडलेली नाही';
+  box.innerHTML = `<strong>${displayName}</strong> यांना <strong>${displayBranch}</strong> मध्ये प्रवेशासाठी मार्गदर्शन हवे आहे.<br/>संपर्क: ${displayContact}<br/><strong>पुढील क्रम:</strong> समुपदेशन → अर्ज भरणे → अर्ज तपासणी → फी भरणे व पावती घेणे.`;
+}
+
+function showProcessStep(stepNumber) {
+  document.querySelectorAll('.process-step').forEach((step, index) => {
+    step.classList.toggle('active', index + 1 === stepNumber);
+  });
+  const info = processSteps[stepNumber];
+  const box = document.getElementById('stepInfo');
+  if (!info || !box) return;
+  box.innerHTML = `<h4>${info.title}</h4><p>${info.text} <a href="${info.link}" target="_blank" rel="noopener noreferrer">${info.label}</a>.</p>`;
+}
+
 </script>
 
 <script>
