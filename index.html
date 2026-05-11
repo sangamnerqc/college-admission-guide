@@ -213,6 +213,13 @@ footer a { color: var(--gold); text-decoration: none; }
 </head>
 <body>
 
+<!-- WELCOME VOICE: keep welcome.mp4 in the same folder as index.html -->
+<!-- This attempts audible autoplay immediately on every page load/refresh. -->
+<video id="welcomeVoice" autoplay preload="auto" playsinline style="position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;left:-9999px;top:-9999px;">
+  <source src="welcome.mp4" type="video/mp4">
+</video>
+
+
 <nav>
   <div class="nav-brand">
     MahaPravesh
@@ -618,6 +625,31 @@ footer a { color: var(--gold); text-decoration: none; }
 </footer>
 
 <script>
+
+function autoplayWelcomeVoice() {
+  const voice = document.getElementById('welcomeVoice');
+  if (!voice) return;
+
+  voice.muted = false;
+  voice.defaultMuted = false;
+  voice.volume = 1;
+
+  try {
+    voice.currentTime = 0; // plays again after every refresh/page load
+  } catch (e) {}
+
+  const playPromise = voice.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {
+      // No button is shown. If a browser blocks audible autoplay, it is due to browser policy.
+      console.warn('Audible autoplay was blocked by the browser.');
+    });
+  }
+}
+
+window.addEventListener('DOMContentLoaded', autoplayWelcomeVoice);
+window.addEventListener('pageshow', autoplayWelcomeVoice);
+
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
