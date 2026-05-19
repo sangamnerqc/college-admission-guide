@@ -630,13 +630,13 @@ body.intro-active nav, body.intro-active #breadcrumb, body.intro-active .page, b
           <div class="process-tree" aria-label="प्रवेश प्रक्रियेचा वृक्ष-आरेख">
             <div class="process-step active" onclick="showProcessStep(1)">
               <div class="step-circle">१</div><div class="step-title">समुपदेशन</div>
-              <div class="step-desc" id="step1Desc">शाखेनुसार समुपदेशन स्थान पाहा.</div>
+              <div class="step-desc" id="step1Desc">शाखेनुसार समुपदेशन (counselling) स्थान पाहा.</div>
               <a class="location-link" id="step1LocationLink" href="#" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
             </div>
             <div class="process-step" onclick="showProcessStep(2)">
               <div class="step-circle">२</div><div class="step-title">अर्ज भरणे</div>
               <div class="step-desc">सर्व शाखांसाठी: Student Facility Center / Setu Suvidha Kendra.</div>
-              <a class="location-link" href="https://maps.app.goo.gl/rbpUM4pekdykAhDg6" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
+              <a class="location-link" href="https://maps.app.goo.gl/FodCoV9mqBeKaboj8" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
             </div>
             <div class="process-step" onclick="showProcessStep(3)">
               <div class="step-circle">३</div><div class="step-title">अर्ज तपासणी</div>
@@ -649,7 +649,7 @@ body.intro-active nav, body.intro-active #breadcrumb, body.intro-active .page, b
               <a class="location-link" href="https://maps.app.goo.gl/VRXHh7AaR2ddWuuT7" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📍 स्थान पाहा</a>
             </div>
           </div>
-          <div class="process-note"><strong>महत्त्वाचे:</strong> Arts, Commerce आणि Science शाखांसाठी समुपदेशन स्थान <strong>Saibaba Sabhagruh</strong> आहे. B.Sc AI & ML, B.Voc., BBA आणि BCS साठी समुपदेशन संबंधित विभागात होईल.</div>
+          <div class="process-note"><strong>महत्त्वाचे:</strong> Arts, Commerce आणि Science शाखांसाठी समुपदेशन (counselling) स्थान <strong>Saibaba Sabhagruh</strong> आहे. B.Sc AI & ML, B.Voc., BBA आणि BCS साठी समुपदेशन (counselling) संबंधित विभागात होईल.</div>
         </div>
         <div class="step-info-card" id="stepInfo"><h4>१. समुपदेशन</h4><p>निवडलेल्या शाखेनुसार योग्य समुपदेशन स्थान येथे दिसेल.</p></div>
       </div>
@@ -973,7 +973,7 @@ const getBranch = () => branchData[document.getElementById('studentBranch')?.val
 function steps() {
   const b = getBranch() || {display:'Selected Branch', counselling:'संबंधित विभाग', query:'Sangamner College'};
   return {
-    1:{title:'१. समुपदेशन',  text:`${b.display} शाखेसाठी समुपदेशन स्थान: ${b.counselling}.`, link:mq(b.query),  label:'समुपदेशन स्थान पाहा'},
+    1:{title:'१. समुपदेशन',  text:`${b.display} शाखेसाठी समुपदेशन स्थान: ${b.counselling}.`, link:mq(b.query),  label:'समुपदेशन (counselling) स्थान पाहा'},
     2:{title:loc.form.t,    text:`${loc.form.n} येथे अर्ज भरता येईल.`,                       link:mq(loc.form.q),    label:loc.form.l},
     3:{title:loc.check.t,   text:`${loc.check.n} येथे अर्ज तपासणी होईल.`,                    link:mq(loc.check.q),   label:loc.check.l},
     4:{title:loc.account.t, text:`${loc.account.n} येथे फी भरणे व पावती मिळेल.`,             link:mq(loc.account.q), label:loc.account.l}
@@ -997,7 +997,7 @@ function updateAdmissionSummary(forceShow=false) {
     logToGoogleSheet(name, contact, b.display);
   }
 
-  box.innerHTML=`<strong>${esc(name||'Student')}</strong> wants admission in <strong>${esc(b?.display||'')}</strong>.<br/>Contact: ${esc(contact)}<br/>Counselling: <strong>${esc(b?.counselling||'')}</strong><br/><strong>क्रम:</strong> समुपदेशन → अर्ज भरणे → तपासणी → फी व पावती.`;
+  box.innerHTML=`<strong>${esc(name||'Student')}</strong> wants admission in <strong>${esc(b?.display||'')}</strong>.<br/>Contact: ${esc(contact)}<br/>Counselling: <strong>${esc(b?.counselling||'')}</strong><br/><strong>क्रम:</strong> समुपदेशन (counselling)→ अर्ज भरणे → तपासणी → फी व पावती.`;
 
   if (panel?.classList.contains('show')||forceShow) _renderProcess();
   if (forceShow && panel) {
