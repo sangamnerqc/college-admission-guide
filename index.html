@@ -1275,27 +1275,25 @@ function startCampusHighlights() {
   if (!photo || !caption || !title || !quote || !progress) return;
 
   let index = 0;
-  const show = nextIndex => {
-    const item = campusHighlights[nextIndex];
-    photo.classList.add("fade-out");
-    caption.classList.add("fade-out");
-    setTimeout(() => {
-      photo.src = item.image;
-      photo.alt = item.alt;
-      title.textContent = item.title;
-      quote.textContent = item.quote;
-      photo.classList.remove("fade-out");
-      caption.classList.remove("fade-out");
-      progress.classList.remove("run");
-      void progress.offsetWidth;
-      progress.classList.add("run");
-    }, 350);
-  };
 
-  show(index);
+  function showCurrentImage() {
+    const item = campusHighlights[index];
+
+    photo.src = item.image;
+    photo.alt = item.alt;
+    title.textContent = item.title;
+    quote.textContent = item.quote;
+
+    progress.classList.remove("run");
+    void progress.offsetWidth;
+    progress.classList.add("run");
+  }
+
+  showCurrentImage();
+
   setInterval(() => {
     index = (index + 1) % campusHighlights.length;
-    show(index);
+    showCurrentImage();
   }, 6000);
 }
 
