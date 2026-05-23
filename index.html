@@ -566,6 +566,47 @@ body.intro-active footer { visibility: hidden; }
   letter-spacing: 2px;
   text-transform: uppercase;
 }
+.welcome-image-track {
+  position: relative;
+  z-index: 1;
+  width: min(1120px, 92vw);
+  margin: 1.6rem auto 0;
+  overflow: hidden;
+  border-radius: 16px;
+}
+.welcome-image-row {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  animation: welcomeSlide 10s linear infinite;
+}
+.welcome-image-card {
+  flex: 0 0 190px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  background: rgba(13, 27, 42, 0.58);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.welcome-image-card img {
+  display: block;
+  width: 100%;
+  height: 118px;
+  object-fit: cover;
+}
+.welcome-image-card span {
+  display: block;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.35;
+  min-height: 42px;
+  padding: 0.55rem 0.65rem;
+}
+@keyframes welcomeSlide {
+  from { transform: translateX(100vw); }
+  to { transform: translateX(-100%); }
+}
 #welcomeIntro.hide-intro { opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s ease; }
 
 @media (max-width: 850px) {
@@ -592,11 +633,22 @@ body.intro-active footer { visibility: hidden; }
   .campus-caption { min-height: 116px; padding: 0.85rem 0.95rem; }
   .campus-caption h2 { font-size: 1.05rem; }
   .campus-caption p { font-size: 0.8rem; }
+
+  .welcome-box { padding: 0.8rem; }
+  .welcome-image-card { flex-basis: 280px; }
+  .welcome-image-card img { height: 180px; }
+  .welcome-image-card span {
+    font-size: 0.82rem;
+    min-height: 46px;
+    padding: 0.65rem 0.75rem;
+  }
+
   #floatBack { left: 50%; bottom: 1rem; transform: translateX(-50%) translateY(10px); font-size: 0.82rem; }
   #floatBack.visible { transform: translateX(-50%) translateY(0); }
   #floatBack:hover { transform: translateX(-50%) translateY(-2px); }
   #logToast { left: 1rem; right: 1rem; bottom: 1rem; }
 }
+
 </style>
 </head>
 <body class="intro-active">
@@ -609,10 +661,27 @@ body.intro-active footer { visibility: hidden; }
 
 <div id="welcomeIntro" aria-live="polite">
   <div class="welcome-box">
+     <div class="welcome-subline">Sangamner College Admission Guide</div>
+    <br><br><br>
     <div class="welcome-text" id="welcomeText"></div>
-    <div class="welcome-subline">Sangamner College Admission Guide</div>
+   
+    <div class="welcome-image-track" aria-label="College welcome image highlights">
+      <div class="welcome-image-row">
+        <div class="welcome-image-card"><img src="campus.webp" alt="College campus highlight 1" /><span>Campus life at Sangamner College</span></div>
+        <div class="welcome-image-card"><img src="campus2.webp" alt="College campus highlight 2" /><span>Campus life at Sangamner College</span></div>
+        <div class="welcome-image-card"><img src="gentshostel.webp" alt="College campus highlight 3" /><span>Best hostel facility</span></div>
+        <div class="welcome-image-card"><img src="image9.webp" alt="College campus highlight 4" /><span>Practical and skill-based education</span></div>
+        <div class="welcome-image-card"><img src="image10.webp" alt="College campus highlight 5" /><span>Laboratories and hands-on training</span></div>
+        <div class="welcome-image-card"><img src="ladieshostel.webp" alt="College campus highlight 6" /><span>Safe and homely stay</span></div>
+        <div class="welcome-image-card"><img src="library books.webp" alt="College campus highlight 7" /><span>Library and reading culture</span></div>
+        <div class="welcome-image-card"><img src="modern classroom.webp" alt="College campus highlight 8" /><span>Student activities and confidence</span></div>
+        <div class="welcome-image-card"><img src="playground.webp" alt="College campus highlight 9" /><span>Sports, fitness, and discipline</span></div>
+        <div class="welcome-image-card"><img src="Gymkhana -04.webp" alt="College campus highlight 10" /><span>Welcome to admission 2026-27</span></div>
+      </div>
+    </div>
   </div>
 </div>
+
 
 <nav>
   <div class="nav-brand" onclick="navigate('home')">
@@ -1311,7 +1380,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
 (function() {
   const sentence = "पदवी अभ्यासक्रमाच्या प्रवेशासाठी आलेल्या सर्व पालकांचे आणि विद्यार्थ्यांचे शिक्षण प्रसारक संस्थेचे संगमनेर महाविद्यालय, संगमनेर सहर्ष स्वागत करत आहे";
-  const totalTime = 6500;
+  const totalTime = 10000;
   function run() {
     const intro = document.getElementById("welcomeIntro");
     const box = document.getElementById("welcomeText");
