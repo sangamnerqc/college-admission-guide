@@ -724,7 +724,7 @@ body.intro-active footer { visibility: hidden; }
     <div class="quick-grid">
       <div class="quick-card" onclick="navigate('streams')">
         <div class="quick-head arts"><div class="quick-icon">📚</div><div class="quick-title">Browse Courses</div><div class="quick-desc">Final admission tree with subjects</div></div>
-        <div class="quick-foot">B.A. · B.Com. · B.Sc. · B.Voc. · BBA</div>
+        <div class="quick-foot">B.A. · B.Com. · B.Sc. · B.Voc. · BBA · M.A. · M.Com. · M.Sc. · M.Sc Computer Science</div>
       </div>
       <div class="quick-card" onclick="navigate('admission')">
         <div class="quick-head science"><div class="quick-icon">🧭</div><div class="quick-title">प्रवेश प्रक्रिया</div><div class="quick-desc">Student information and process guide</div></div>
@@ -781,13 +781,15 @@ body.intro-active footer { visibility: hidden; }
           </div>
 
           <div class="form-group">
-            <label class="marathi-label" for="studentYear">NEP ४ वर्षांच्या पदवी अभ्यासक्रमात कोणत्या वर्षाला प्रवेश घ्यायचा आहे <span>*</span></label>
-            <select class="form-control" id="studentYear" onchange="updateAdmissionSummary()">
+            <label class="marathi-label" for="studentYear">NEP ४ वर्षांच्या पदवी किंवा २ वर्षाच्या पदव्यूत्तर अभ्यासक्रमासाठी कोणत्या वर्षाला प्रवेश घ्यायचा आहे?<span>*</span></label>
+            <select class="form-control" id="studentYear" onchange="updateCourseOptions()">
               <option value="">-- Select Admission Year --</option>
               <option value="First Year">First Year / प्रथम वर्ष</option>
               <option value="Second Year">Second Year / द्वितीय वर्ष</option>
               <option value="Third Year">Third Year / तृतीय वर्ष</option>
               <option value="Fourth Year">Fourth Year / चतुर्थ वर्ष</option>
+              <option value="First Year PG">First Year PG / पदव्युत्तर प्रथम वर्ष</option>
+              <option value="Second Year PG">Second Year PG / पदव्युत्तर द्वितीय वर्ष</option>
             </select>
           </div>
 
@@ -1007,6 +1009,52 @@ const admissionTree = {
     counselling: "BBA Department, Sangamner College",
     query: "BBA Department Sangamner College"
   }
+,
+  ma: {
+    display: "M.A.",
+    subjects: [
+      { name: "Economics", person: "Pro. Dr. Sanap G.K.", phone: "9422326349" },
+      { name: "English", person: "Pro. Dr. Tashildar R.B.", phone: "9850264500" },
+      { name: "Hindi", person: "Pro. Dr. Patil J.P.", phone: "9860286123" },
+      { name: "Marathi", person: "Pro. Dr. Limbekar A.S.", phone: "9326891567" },
+      { name: "Political Science", person: "Pro. Dr. Benke S.A.", phone: "9850603070" },
+      { name: "Sanskrit", person: "Pro. Dr. Mandlik A.A.", phone: "9422740189" }
+    ],
+    counselling: "RB Building (प्राचार्य म वि कौंडिण्य संशोधन भवन )",
+    query: "RB Building Sangamner College"
+  },
+  mcom: {
+    display: "M.Com.",
+    subjects: [
+      { name: "Advanced Accounting and Taxation", person: "Dr. Mendkar V.A.", phone: "9822038727" },
+      { name: "Advanced Cost Accounting", person: "Pro. Ratne R.K.", phone: "9130660693" },
+      { name: "Business Administration", person: "Pro. Tribhuvan R.B.", phone: "9890424181" }
+    ],
+    counselling: "RB Building (प्राचार्य म वि कौंडिण्य संशोधन भवन )",
+    query: "RB Building Sangamner College"
+  },
+  msc: {
+    display: "M.Sc.",
+    subjects: [
+      { name: "Physics", person: "Pro. Dr. Dalvi S.N.", phone: "9850014466" },
+      { name: "Analytical Chemistry", person: "Pro. Dr. Tryambake P.T.", phone: "9096298607" },
+      { name: "Organic Chemistry", person: "Pro. Dr. Tryambake P.T.", phone: "9096298607" },
+      { name: "Botany", person: "Pro. Dr. Jadhav S.D.", phone: "8605558167" },
+      { name: "Zoology", person: "Pro. Dr. Bhavare V.V.", phone: "9421438204" },
+      { name: "Electronics", person: "Pro. Bhusal S.C.", phone: "9922303683" },
+      { name: "Mathematics", person: "Pro. Dr. Gudade S.K.", phone: "9822965671" }
+    ],
+    counselling: "RB Building (प्राचार्य म वि कौंडिण्य संशोधन भवन )",
+    query: "RB Building Sangamner College"
+  },
+  msc_cs: {
+    display: "M.Sc Computer Science",
+    subjects: [
+      { name: "Computer Science", person: "Pro. Pansare S.Y.", phone: "9767786614" }
+    ],
+    counselling: "Computer Science Department, Sangamner College",
+    query: "Computer Science Department Sangamner College"
+  }
 };
 
 const loc = {
@@ -1168,6 +1216,31 @@ function handleCourseChange() {
   updateAdmissionSummary();
 }
 
+function updateCourseOptions() {
+  const year = document.getElementById("studentYear").value;
+  const courseSelect = document.getElementById("studentCourse");
+  courseSelect.innerHTML = '<option value="">-- Select Course --</option>';
+
+  const pgCourses = ["ma","mcom","msc","msc_cs"];
+
+  Object.entries(admissionTree).forEach(([key,course])=>{
+    const isPG = pgCourses.includes(key);
+    const showPG = year === "First Year PG" || year === "Second Year PG";
+
+    if((showPG && isPG) || (!showPG && !isPG)){
+      const opt = document.createElement("option");
+      opt.value = key;
+      opt.textContent = course.display;
+      courseSelect.appendChild(opt);
+    }
+  });
+
+  document.getElementById("studentSubject").innerHTML =
+    '<option value="">-- Select Subject / Specialization --</option>';
+  document.getElementById("studentSubject").disabled = true;
+  updateAdmissionSummary();
+}
+
 function steps() {
   const course = getCourse() || { display: "Selected Course", counselling: "संबंधित विभाग", query: "Sangamner College" };
   const subject = getSubject();
@@ -1273,14 +1346,7 @@ function _clearAdmissionForm() {
 function renderAdmissionTree() {
   const courseSelect = document.getElementById("studentCourse");
   const courseTree = document.getElementById("courseTree");
-  if (courseSelect) {
-    Object.entries(admissionTree).forEach(([key, course]) => {
-      const option = document.createElement("option");
-      option.value = key;
-      option.textContent = course.display;
-      courseSelect.appendChild(option);
-    });
-  }
+  if (courseSelect) { updateCourseOptions(); }
   if (courseTree) {
     courseTree.innerHTML = Object.values(admissionTree).map(course => `
       <div class="tree-card">
