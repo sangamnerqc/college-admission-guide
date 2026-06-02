@@ -713,16 +713,17 @@ body.intro-active footer { visibility: hidden; }
     <p class="hero-sub">ता. संगमनेर, जि. अहिल्यानगर, महाराष्ट्र (422 605)</p>
     <p class="hero-affil">Affiliated to Savitribai Phule Pune University, Pune <br> As per NEP 2020</p>
     <a class="hero-link" href="#" onclick="event.preventDefault(); navigate('admission');">प्रवेश प्रक्रिया पाहा</a>
-    <div class="campus-highlight" aria-label="College image highlights">
-      <div class="campus-photo-wrap">
-        <img id="campusPhoto" src="Gymkhana -04.webp" alt="Sangamner College Gymkhana" />
-      </div>
-      <div class="campus-caption" id="campusCaption">
-        <h2 id="campusTitle">Gymkhana</h2>
-        <p id="campusQuote">"A dedicated space for sports, fitness, discipline, and student energy on campus."</p>
-      </div>
-      <div class="campus-progress" aria-hidden="true"><span id="campusProgress"></span></div>
-    </div>
+    
+<div class="campus-highlight" aria-label="College shorts highlights">
+  <div id="shortsContainer" onclick="window.open(shortsVideos[currentShort].url,'_blank')" style="cursor:pointer;background:#000">
+    <iframe id="shortsFrame"
+      src="https://www.youtube.com/embed/YCRmrUp233o?autoplay=1&mute=1&controls=0"
+      style="width:100%;height:520px;border:none;display:block;"
+      allow="autoplay; encrypted-media"
+      allowfullscreen></iframe>
+  </div>
+</div>
+
   </div>
 
   <div class="section">
@@ -1477,5 +1478,30 @@ document.addEventListener("DOMContentLoaded", () => {
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", run) : run();
 })();
 </script>
+
+<script>
+const shortsVideos=[
+{id:"YCRmrUp233o",url:"https://youtube.com/shorts/YCRmrUp233o"},
+{id:"ls0M8obNbmM",url:"https://youtube.com/shorts/ls0M8obNbmM"},
+{id:"hcre4MC25nE",url:"https://youtube.com/shorts/hcre4MC25nE"},
+{id:"FJGMXhMZ-b0",url:"https://youtube.com/shorts/FJGMXhMZ-b0"}
+];
+let currentShort=0;
+
+function loadShort(i){
+ const f=document.getElementById('shortsFrame');
+ if(!f) return;
+ currentShort=i;
+ f.src='https://www.youtube.com/embed/'+shortsVideos[i].id+'?autoplay=1&mute=1&controls=0';
+}
+
+setInterval(function(){
+ const f=document.getElementById('shortsFrame');
+ if(!f) return;
+ currentShort=(currentShort+1)%shortsVideos.length;
+ loadShort(currentShort);
+},10000);
+</script>
+
 </body>
 </html>
